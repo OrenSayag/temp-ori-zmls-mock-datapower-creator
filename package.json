@@ -1,0 +1,17 @@
+{
+  "name": "shila-zmls-mock-datapower-db-creator",
+  "author": "Oren Sayag",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev":"nodemon index.ts"
+  },
+  "dependencies": {
+    "faker": "^5.5.3",
+    "mongoose": "^6.0.13",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.2",
+    "yargs": "^17.2.1"
+  }
+}
