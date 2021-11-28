@@ -4,13 +4,7 @@ import createSlot from "./createSlot"
 const faker = require('faker')
 
 export default async (patientId:string) => {
-    let slot = await Slots.find({isAvailable:true})
-    slot = slot[0]
-    if(!slot){
-        await createSlot()
-        slot = await Slots.find({isAvailable:true})
-        slot = slot[0]
-    }
+    const slot = await createSlot()
     const appointment = new Appointments({
         slot: slot._id,
         linkedToPatient: patientId

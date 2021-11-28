@@ -24,4 +24,5 @@ export default async (props?:any) => {
         ...props
     })
     await slot.save()
+    return slot
 }

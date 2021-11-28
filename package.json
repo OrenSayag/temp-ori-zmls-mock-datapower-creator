@@ -3,11 +3,12 @@
   "author": "Oren Sayag",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
   "scripts": {
-    "dev":"nodemon index.ts"
+    "dev": "nodemon index.ts",
+    "ship": "docker pull mongo && docker run --name the-mongo-explorer --rm -p '27017:27017' mongo"
   },
   "dependencies": {
+    "dotenv": "^10.0.0",
     "faker": "^5.5.3",
     "mongoose": "^6.0.13",
     "ts-node": "^10.4.0",

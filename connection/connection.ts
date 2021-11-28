@@ -5,6 +5,7 @@ import { createTherapist } from "../creators/createTheraspist";
 const mongoose = require('mongoose');
 const faker = require('faker')
 const yargs = require('yargs')
+require('dotenv').config()
 const argv = yargs.argv
 
 
@@ -14,14 +15,13 @@ async function main() {
 
     const { accounts, therapists, slots, families } = argv
 
-    // TODO this should come from yargs
-    const numberOfAccounts = accounts || 2
-    const numberOfTherapists = therapists || 10
-    const numberOfSlots = slots || 100
-    const numberOfFamilies = families || 2
+    const numberOfAccounts = accounts!==undefined ? accounts : 2
+    const numberOfTherapists = therapists !==undefined ? therapists : 10
+    const numberOfSlots = slots !==undefined ? slots : 100
+    const numberOfFamilies = families !==undefined ? families : 2
 
     try {
-        await mongoose.connect('mongodb://localhost:27017/test');
+        await mongoose.connect(process.env.MONGO_CONNECT);
         console.log("connected to mongodb")
 
         faker.locale = "he";
@@ -43,10 +43,6 @@ async function main() {
         }
 
         console.log("Done.")
-        console.log(`Created ${accounts || 2} accounts.`)
-        console.log(`${families || 2} families.`)
-        console.log(`${therapists || 10} therapists.`)
-        console.log(`${slots || 100} slots.`)
 
     } catch (error) {
         console.log(error)

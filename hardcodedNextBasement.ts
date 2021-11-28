@@ -97,7 +97,7 @@ export const servicecCodes = [
 export const languages = 
     ['he', 'en', 'ar', 'ru', 'am']
 
-export const titles = ['מטפל','ד״ר']
+export const titles = ['ד״ר']
 
 export const clinicCodes = [
     '1234',
