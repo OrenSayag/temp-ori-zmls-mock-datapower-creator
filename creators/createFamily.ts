@@ -2,11 +2,12 @@ import { Accounts } from "../schemas/account";
 import randomAdultDateOfBirth from "../utils/randomAdultDateOfBirth";
 import { randomGender } from "../utils/randomGender";
 import { randomIsraeliId } from "../utils/randomIsraeliId";
+import randomMinorDateOfBirth from "../utils/randomMinorDateOfBirth";
 import { createPatient } from "./createPatient";
 const faker = require('faker')
 
 
-export const createAccount = async (numberOfPatients?:number) => {
+export const createFamily = async (numberOfPatients?:number) => {
     const patientsToCreate = numberOfPatients || Math.floor(Math.random()*10)+1
     let accountId = randomIsraeliId()
     const accountGender = randomGender()
@@ -24,9 +25,19 @@ export const createAccount = async (numberOfPatients?:number) => {
                 gender: accountGender,
                 dateOfBirth: randomAdultDateOfBirth()
             }))
-        } else {
+        } 
+        else if (i===1) {
+            patients.push(await createPatient({
+                id: accountId,
+                lastName: accountLastName,
+                gender: randomGender(),
+                dateOfBirth: randomAdultDateOfBirth()
+            }))
+        }
+        else {
             patients.push(await createPatient({
                 lastName: accountLastName,
+                dateOfBirth: randomMinorDateOfBirth()
             }))
         }
     }
