@@ -1,61 +1,39 @@
-import { Accounts } from "../schemas/account";
+import { createAccount } from "../creators/createAccount";
+import createSlot from "../creators/createSlot";
+import { createTherapist } from "../creators/createTheraspist";
 const mongoose = require('mongoose');
 const faker = require('faker')
-
-const { fake } = faker
 
 main()
 
 async function main() {
+
+    // TODO this should come from yargs
     const numberOfAccounts = 2
+    const numberOfTherapists = 2 || 10
+    const numberOfSlots = 20 || 100
+
     try {
         await mongoose.connect('mongodb://localhost:27017/test');
         console.log("connected to mongodb")
 
         faker.locale = "he";
 
-        for (let i = 0; i < numberOfAccounts; i++) {
-            createAccount()
+        for (let i = 0; i < numberOfTherapists; i++) {
+            await createTherapist()
         }
+
+        for (let i = 0; i < numberOfSlots; i++) {
+            await createSlot()   
+        }
+
+        for (let i = 0; i < numberOfAccounts; i++) {
+            await createAccount()
+        }
+
+        console.log("Done.")
 
     } catch (error) {
         console.log(error)
     }
-}
-
-const createAccount = async (numberOfPatients?:number) => {
-    const patientsToCreate = numberOfPatients || Math.floor(Math.random()*10)+1
-    
-    const patients = []
-    for (let i = 0; i < patientsToCreate; i++) {
-        
-    }
-
-    const account = new Accounts({
-        id: fake("{{datatype.uuid}}"),
-        gender: randomGender(),
-    });
-    console.log(account)
-    // await account.save()
-}
-
-// const createPatients = async (numberOfPatients:number) => {
-//     for (let i = 0; i < numberOfPatients; i++) {
-//         const patient = new Patients({
-//             // id: fake("{{datatype.uuid}}"),
-//             // gender: randomGender(),
-//         });
-//         await patient.save()
-//     }
-// }
-
-const randomGender = () => {
-    return ['male','female'][Math.floor(Math.random()*2)]
-}
-
-const createPatient = (props = {}) => {
-    return {
-        id: '1234',
-        ...props
-    };
 }
